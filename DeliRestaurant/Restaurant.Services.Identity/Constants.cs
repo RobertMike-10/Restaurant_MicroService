@@ -41,7 +41,8 @@ namespace Restaurant.Services.Identity
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    IdentityServerConstants.StandardScopes.Email
+                    IdentityServerConstants.StandardScopes.Email,
+                    "Restaurant"
                 }
             }
         };
