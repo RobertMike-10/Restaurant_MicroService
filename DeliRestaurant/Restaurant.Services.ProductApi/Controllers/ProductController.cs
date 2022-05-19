@@ -17,7 +17,7 @@ namespace Restaurant.Services.ProductApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{productId}")]
         public async Task<dynamic> Get(int productId)
         {
             try
@@ -83,7 +83,7 @@ namespace Restaurant.Services.ProductApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{productId}")]
         public async Task<dynamic> Delete(int productId)
         {
             try

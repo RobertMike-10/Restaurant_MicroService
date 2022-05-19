@@ -45,5 +45,58 @@ namespace Restaurant.Web.Controllers
             }
             return View(product);
         }
+
+        public async Task<IActionResult> ProductEdit(int productId)
+        {
+            ProductDto product;
+            var response = await _productService.GetProductByIdAsync<ResponseDto>(productId);
+            if (response != null && response.isSuccess)
+            {
+                product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+                return View(product);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductEdit(ProductDto product)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _productService.UpdateProductAsync<ResponseDto>(product);
+                if (response != null && response.isSuccess)
+                {
+                    return RedirectToAction(nameof(ProductIndex));
+                }
+            }
+            return View(product);
+        }
+
+        public async Task<IActionResult> ProductDelete(int productId)
+        {
+            ProductDto product;
+            var response = await _productService.GetProductByIdAsync<ResponseDto>(productId);
+            if (response != null && response.isSuccess)
+            {
+                product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+                return View(product);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductDelete(ProductDto product)
+        {
+           
+             var response = await _productService.DeleteProductAsync<ResponseDto>(product.ProductId);
+             if ( response.isSuccess)
+             {
+                    return RedirectToAction(nameof(ProductIndex));
+             }
+            
+            return View(product);
+        }
     }
 }
