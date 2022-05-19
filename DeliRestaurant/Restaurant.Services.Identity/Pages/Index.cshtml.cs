@@ -2,6 +2,8 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Restaurant.Services.Identity.DbContexts;
+using Restaurant.Services.Identity.Initializer;
 
 namespace DeliRestaurant.Pages.Home;
 
@@ -9,6 +11,11 @@ namespace DeliRestaurant.Pages.Home;
 public class Index : PageModel
 {
     public string Version;
+
+    public Index(IDbInitializer init )
+    {
+        init.Intialize();
+    }
         
     public void OnGet()
     {
