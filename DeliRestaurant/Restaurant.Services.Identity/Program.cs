@@ -9,11 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 
 var build = builder.Services.AddIdentityServer(options =>
 {
@@ -25,11 +30,12 @@ var build = builder.Services.AddIdentityServer(options =>
 }).AddInMemoryIdentityResources(Constants.IdentityResources)
 .AddInMemoryApiScopes(Constants.ApiScopes)
 .AddInMemoryClients(Constants.Clients)
-.AddAspNetIdentity<ApplicationUser>();
+.AddAspNetIdentity<ApplicationUser>(); 
+
 
 build.AddDeveloperSigningCredential();
 
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 
 var app = builder.Build();
 

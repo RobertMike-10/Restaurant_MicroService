@@ -10,6 +10,26 @@ Constants.ProductApiBase = builder.Configuration["ServiceUrls:ProductApi"];
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+
+}).AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
+.AddOpenIdConnect("oidc", options =>
+{
+    options.Authority = builder.Configuration["ServiceUrls:IdentityApi"];
+    options.GetClaimsFromUserInfoEndpoint = true;
+    options.ClientId = "Restaurant";
+    options.ClientSecret = "secretBecky";
+    options.ResponseType = "code";
+    options.TokenValidationParameters.NameClaimType = "name";
+    options.TokenValidationParameters.RoleClaimType = "role";
+    options.Scope.Add("Restaurant");
+    options.SaveTokens = true;
+
+
+});
 
 var app = builder.Build();
 
@@ -25,7 +45,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

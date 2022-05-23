@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Services.ProductApi", "Restaurant.Services.ProductApi\Restaurant.Services.ProductApi.csproj", "{834E768E-4846-46D1-974A-25E6543D502F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Services.Identity", "Restaurant.Services.Identity\Restaurant.Services.Identity.csproj", "{A4D55278-7BB3-41E6-9178-5396C2466456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Services.Identity", "Restaurant.Services.Identity\Restaurant.Services.Identity.csproj", "{A4D55278-7BB3-41E6-9178-5396C2466456}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

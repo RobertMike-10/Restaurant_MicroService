@@ -35,8 +35,8 @@ namespace Restaurant.Services.Identity
                 ClientId="Restaurant",
                 ClientSecrets={new Secret("secretBecky".Sha256()) },
                 AllowedGrantTypes= GrantTypes.Code,   
-                RedirectUris = { "https://localhost:44335/signin-oidc" },
-                PostLogoutRedirectUris = { "https://localhost:44335/signout-callback-oidc" },
+                RedirectUris = { "https://localhost:7106/signin-oidc" },
+                PostLogoutRedirectUris = { "https://localhost:7106/signout-callback-oidc" },
                 AllowedScopes=new List<string>()
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
