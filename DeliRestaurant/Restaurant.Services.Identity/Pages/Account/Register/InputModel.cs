@@ -18,6 +18,6 @@ namespace Restaurant.Services.Identity.Pages.Account.Register
         public string ReturnUrl { get; set; }
         public string RoleName { get; set; }
 
-        public List<string> roles { get; set; }
+        
     }
 }

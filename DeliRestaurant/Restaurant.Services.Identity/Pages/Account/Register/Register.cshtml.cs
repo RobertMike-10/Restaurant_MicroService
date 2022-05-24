@@ -25,6 +25,9 @@ namespace Restaurant.Services.Identity.Pages.Account.Register
         private readonly IEventService _events;
         [BindProperty]
         public InputModel Input { get; set; }
+        [BindProperty]
+        public List<string> UserRoles { get; set; }
+
         public RegisterViewModel View { get; set; }
 
         public RegisterModel(IIdentityServerInteractionService interaction,
@@ -40,6 +43,8 @@ namespace Restaurant.Services.Identity.Pages.Account.Register
             _clientStore = clientStore;
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
+            _events = events;
         }
 
         public async Task<IActionResult> OnGet(string returnUrl)
@@ -52,7 +57,8 @@ namespace Restaurant.Services.Identity.Pages.Account.Register
 
         public async Task<IActionResult> OnPost()
         {
-            ViewData["ReturnUrl"] = Input.ReturnUrl;
+            ViewData["ReturnUrl"] = Input.ReturnUrl;            
+
             if (ModelState.IsValid)
             {
 
@@ -143,8 +149,8 @@ namespace Restaurant.Services.Identity.Pages.Account.Register
             List<string> roles = new List<string>();
             roles.Add("Admin");
             roles.Add("Customer");
-            
-            Input.roles = roles;
+
+            UserRoles = roles;
             if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
             {
                 var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
