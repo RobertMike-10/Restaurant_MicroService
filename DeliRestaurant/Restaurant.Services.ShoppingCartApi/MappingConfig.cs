@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Restaurant.Services.ShoppingCartApi.Models;
+using Restaurant.Services.ShoppingCartApi.Models.Dto;
 
 namespace Restaurant.Services.ShoppingCartApi
 {
@@ -11,6 +13,13 @@ namespace Restaurant.Services.ShoppingCartApi
             {
                 config.CreateMap<ProductDto, Product>();
                 config.CreateMap<Product, ProductDto>();
+                config.CreateMap<CartHeaderDto, CartHeader>();
+                config.CreateMap<CartHeader, CartHeaderDto>();
+                config.CreateMap<CartDetailDto, CartDetail>();
+                config.CreateMap<CartDetail, CartDetailDto>();
+                config.CreateMap<CartDto, Cart>();
+                config.CreateMap<Cart, CartDto>();
+
             });
             return mappingConfig;
         }

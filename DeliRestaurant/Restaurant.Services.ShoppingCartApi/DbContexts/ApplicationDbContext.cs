@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.Services.ShoppingCartApi.Models;
 
 namespace Restaurant.Services.ShoppingCartApi.DbContexts
 {
@@ -8,6 +9,9 @@ namespace Restaurant.Services.ShoppingCartApi.DbContexts
         {
 
         }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<CartHeader> CartHeaders { get; set; }
+        public DbSet<CartDetail> CartDetails { get; set; }
 
     }
 }

@@ -44,11 +44,12 @@ namespace Restaurant.Web.Controllers
             return View(product);
         }
 
-        [HttpPost]
+     /*   [HttpPost]
         [ActionName("Details")]
         [Authorize]
         public async Task<IActionResult> DetailsPost(ProductDto productDto)
         {
+            /*
             CartDto cartDto = new()
             {
                 CartHeader = new CartHeaderDto
@@ -80,7 +81,8 @@ namespace Restaurant.Web.Controllers
             }
 
             return View(productDto);
-        }
+            
+        }*/
 
 
         public IActionResult Privacy()
