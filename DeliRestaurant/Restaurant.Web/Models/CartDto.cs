@@ -1,9 +1,8 @@
-﻿namespace Restaurant.Services.ShoppingCartApi.Models.Dto
+﻿namespace Restaurant.Web.Models
 {
     public class CartDto
     {
         public CartHeaderDto CartHeader { get; set; }
         public IEnumerable<CartDetailDto> CarDetails { get; set; }
-
     }
 }

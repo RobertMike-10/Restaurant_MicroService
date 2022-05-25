@@ -16,7 +16,7 @@ namespace Restaurant.Web.Services.IServices
             {
                 ApiType = Constants.ApiType.POST,
                 Data = product,
-                Url = Constants.ProductApiBase,
+                Url = Constants.ProductApiBase!,
                 AccessToken = token
             });
         }
@@ -46,7 +46,7 @@ namespace Restaurant.Web.Services.IServices
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = Constants.ApiType.GET,
-                Url = Constants.ProductApiBase ,
+                Url = Constants.ProductApiBase! ,
                 AccessToken = token
             });
         }
@@ -57,7 +57,7 @@ namespace Restaurant.Web.Services.IServices
             {
                 ApiType = Constants.ApiType.PUT,
                 Data = product,
-                Url = Constants.ProductApiBase,
+                Url = Constants.ProductApiBase!,
                 AccessToken = token
             });
         }
