@@ -5,11 +5,11 @@ namespace Restaurant.Services.ShoppingCartApi.Models
     public class CartHeader
     {
         [Key]
-        public int CardHeaderId { get; set; }
+        public int CartHeaderId { get; set; }
 
         [Required]
-        public string userId { get; set; }
-        public string? cuoponCode { get; set; }
+        public string UserId { get; set; }
+        public string? CuoponCode { get; set; }
 
 
     }
