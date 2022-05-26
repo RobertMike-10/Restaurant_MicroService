@@ -4,7 +4,7 @@ namespace Restaurant.Services.ShoppingCartApi.Models.Dto
 {
     public class CartHeaderDto
     {        
-        public int CardHeaderId { get; set; }
+        public int CartHeaderId { get; set; }
 
         [Required]
         public string UserId { get; set; }

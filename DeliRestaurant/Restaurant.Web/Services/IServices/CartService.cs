@@ -32,7 +32,7 @@ namespace Restaurant.Web.Services.IServices
             });
         }
 
-        public async Task<T> GetGetCartUserByIdAsync<T>(string userId, string? token = null)
+        public async Task<T> GetCartUserByIdAsync<T>(string userId, string? token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {

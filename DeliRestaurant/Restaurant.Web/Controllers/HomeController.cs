@@ -15,10 +15,11 @@ namespace Restaurant.Web.Controllers
         private readonly ICartService _cartService;
         public HomeController(ILogger<HomeController> logger,
                               IProductService productService,
-                              ICartService _productService)
+                              ICartService cartService)
         {
             _logger = logger;
             _productService = productService;
+            _cartService = cartService;
         }
 
         public async Task<IActionResult> Index()
@@ -75,7 +76,7 @@ namespace Restaurant.Web.Controllers
             }
             List<CartDetailDto> cartDetailsDtos = new();
             cartDetailsDtos.Add(cartDetail);
-            cartDto.CarDetails = cartDetailsDtos;
+            cartDto.CartDetails = cartDetailsDtos;
 
             
             var addToCartResp = await _cartService.AddToCartAsync<ResponseDto>(cartDto, accessToken);
