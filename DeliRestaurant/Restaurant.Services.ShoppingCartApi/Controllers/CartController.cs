@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Restaurant.Services.ProductApi.Models.Dto;
 using Restaurant.Services.ShoppingCartApi.Models.Dto;
 using Restaurant.Services.ShoppingCartApi.Repository;
 

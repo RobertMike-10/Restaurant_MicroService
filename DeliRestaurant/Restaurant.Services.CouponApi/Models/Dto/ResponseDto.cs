@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Services.ShoppingCartApi.Models.Dto
+﻿namespace Restaurant.Services.CouponApi.Models.Dto
 {
     public class ResponseDto
     {

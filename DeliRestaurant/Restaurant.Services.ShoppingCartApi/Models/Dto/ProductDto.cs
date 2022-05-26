@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Restaurant.Services.ShoppingCartApi.Models.Dto
 {
-  
-        public class ProductDto
+          public class ProductDto
         {
             
             public int ProductId { get; set; }
