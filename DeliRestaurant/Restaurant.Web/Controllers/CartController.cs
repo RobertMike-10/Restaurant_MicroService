@@ -20,7 +20,34 @@ namespace Restaurant.Web.Controllers
             return View(await LoadCartBasedOnUser());
         }
 
-        private async Task<CartDto> LoadCartBasedOnUser()
+
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value!;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.RemoveFromCartAsync<ResponseDto>(cartDetailsId, accessToken);
+            if (response != null && response.isSuccess)
+            {
+                return RedirectToAction(nameof(CartIndex));
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> ClearCart()
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value!;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.ClearCart<ResponseDto>(userId, accessToken);
+            if (response != null && response.isSuccess)
+            {
+                return RedirectToAction(nameof(CartIndex));
+            }
+
+            return View();
+        }
+
+            private async Task<CartDto> LoadCartBasedOnUser()
         {
             var userId  = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value!;
             var accessToken = await HttpContext.GetTokenAsync("access_token");

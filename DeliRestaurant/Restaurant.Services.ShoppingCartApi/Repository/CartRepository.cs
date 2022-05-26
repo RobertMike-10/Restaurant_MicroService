@@ -57,7 +57,7 @@ namespace Restaurant.Services.ShoppingCartApi.Repository
                                                                   d.CartHeaderId == cartHeaderDb.CartHeaderId);
                         if (cartDetailsDb == null)
                         {
-                            await CreateDetail(cart.CartHeader, detail);
+                            await CreateDetail(cartHeaderDb, detail);
                         }
                         else
                         {
