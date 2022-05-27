@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Restaurant.Services.CouponApi.Models;
+using Restaurant.Services.CouponApi.Models.Dto;
 
 namespace Restaurant.Services.CouponApi
 {
@@ -8,8 +10,8 @@ namespace Restaurant.Services.CouponApi
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                //config.CreateMap<ProductDto, Product>();
-                //config.CreateMap<Product, ProductDto>();            
+                config.CreateMap<CouponDto, Coupon>();
+                config.CreateMap<Coupon, CouponDto>();            
 
             });
             return mappingConfig;
