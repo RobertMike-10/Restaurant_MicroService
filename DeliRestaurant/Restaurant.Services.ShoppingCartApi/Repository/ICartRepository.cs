@@ -7,9 +7,8 @@ namespace Restaurant.Services.ShoppingCartApi.Repository
        Task<CartDto> GetCartUserById(string userId);
        Task<CartDto?> CreateUpdateCart(CartDto cartDto);
        Task<bool> RemoveFromCart(int cartDetailId);
-
-        Task<bool> ClearCart(string userId);
-
-
+       Task<bool> ClearCart(string userId);
+       Task<bool> ApplyCoupon(string userId, string couponCode);
+        Task<bool> RemoveCoupon(string userId);
     }
 }
