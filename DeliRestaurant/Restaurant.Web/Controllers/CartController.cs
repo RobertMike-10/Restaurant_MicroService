@@ -128,6 +128,16 @@ namespace Restaurant.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        [ActionName("CheckOut")]
+        public async Task<IActionResult> CheckOut()
+        {
+            var cart = await LoadCartBasedOnUser();
+            cart.CartHeader.Card = new CreditCard();
+            return View(cart);
+        }
+
+
         private bool ValidateCoupon(CouponDto coupon)
         {
             if (coupon.ExpirationDate < DateTime.Now )
