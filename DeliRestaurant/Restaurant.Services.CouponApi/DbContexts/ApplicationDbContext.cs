@@ -14,8 +14,7 @@ namespace Restaurant.Services.CouponApi.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
+           
 
             modelBuilder.Entity<Coupon>().HasData(new Coupon
             {

@@ -42,7 +42,7 @@ namespace Restaurant.Web.Services
         {
             try
             {
-                var client = httpClient.CreateClient("ReataurantApi");
+                var client = httpClient.CreateClient("RestaurantApi");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
                 message.RequestUri = new Uri(apiRequest.Url);

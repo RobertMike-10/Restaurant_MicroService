@@ -28,7 +28,7 @@ namespace Restaurant.Web.Services.IServices
             {
                 ApiType = Constants.ApiType.POST,
                 Data = cart,
-                Url = Constants.ShoppingCartApiBase + "/RemoveCoupon",
+                Url = Constants.ShoppingCartApiBase + "/ApplyCoupon",
                 AccessToken = token
             });
         }

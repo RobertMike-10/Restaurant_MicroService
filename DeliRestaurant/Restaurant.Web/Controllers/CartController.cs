@@ -9,10 +9,12 @@ namespace Restaurant.Web.Controllers
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
+        private readonly ICouponService _couponService;
 
-        public CartController(ICartService cartService)
+        public CartController(ICartService cartService, ICouponService couponService)
         {
             _cartService = cartService;
+            _couponService = couponService;
         }
 
         public async Task<IActionResult> CartIndex()
@@ -62,7 +64,20 @@ namespace Restaurant.Web.Controllers
             if (cartDto.CartHeader != null)
             {
 
+                if(!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
+                {
+                    var coupon = await _couponService.GetCoupon<ResponseDto>(cartDto.CartHeader.CouponCode, accessToken!);
+                    if (coupon != null && coupon.isSuccess)
+                    {
+                        CouponDto couponObj = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(coupon.Result));
+                        if (ValidateCoupon(couponObj))
+                            cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
+                    }
+
+                }
                 cartDto.CartDetails.ToList().ForEach(d => cartDto.CartHeader.OrderTotal += (d.Product.Price *d.Count));
+                cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
+
             }
             return cartDto;
         }
@@ -74,13 +89,26 @@ namespace Restaurant.Web.Controllers
         {
             var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var response = await _cartService.ApplyCoupon<ResponseDto>(cart, accessToken);
+            if (cart.CartHeader.CouponCode!=null)
+            { 
+               var coupon = await _couponService.GetCoupon<ResponseDto>(cart.CartHeader.CouponCode!, accessToken!);
+               if (coupon != null && coupon.isSuccess)
+               {
 
-            if (response != null && response.isSuccess)
-            {
-                return RedirectToAction(nameof(CartIndex));
+                    CouponDto couponObj = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(coupon.Result));
+                    if (ValidateCoupon(couponObj))
+                    {
+                      
+                       var response = await _cartService.ApplyCoupon<ResponseDto>(cart, accessToken);
+
+                       if (response != null && response.isSuccess)
+                       {
+                         return RedirectToAction(nameof(CartIndex));
+                       }
+                    }
+                }
             }
-            return View();
+            return RedirectToAction(nameof(CartIndex));
         }
 
         [HttpPost]
@@ -96,6 +124,14 @@ namespace Restaurant.Web.Controllers
                 return RedirectToAction(nameof(CartIndex));
             }
             return View();
+        }
+
+        private bool ValidateCoupon(CouponDto coupon)
+        {
+            if (coupon.ExpirationDate < DateTime.Now )
+                return false;
+            else
+                return true;
         }
     }
 }

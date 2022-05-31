@@ -11,6 +11,13 @@ namespace Restaurant.Web.Models
         public string? CouponCode { get; set; }
         public Decimal OrderTotal { get; set; }
         public Decimal DiscountTotal { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateTime PickUpDateTime { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Email { get; set; }
+        public CreditCard? Card { get; set; }
+
 
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Restaurant.Services.CouponApi;
 using Restaurant.Services.CouponApi.DbContexts;
+using Restaurant.Services.CouponApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +49,7 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.Services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
