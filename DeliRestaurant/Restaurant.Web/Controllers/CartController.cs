@@ -64,18 +64,20 @@ namespace Restaurant.Web.Controllers
             if (cartDto.CartHeader != null)
             {
 
-                if(!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
+                cartDto.CartDetails.ToList().ForEach(d => cartDto.CartHeader.OrderTotal += (d.Product.Price * d.Count));
+
+                if (!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
                 {
                     var coupon = await _couponService.GetCoupon<ResponseDto>(cartDto.CartHeader.CouponCode, accessToken!);
                     if (coupon != null && coupon.isSuccess)
                     {
                         CouponDto couponObj = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(coupon.Result));
                         if (ValidateCoupon(couponObj))
-                            cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
+                            cartDto.CartHeader.DiscountTotal = (couponObj.DiscountAmount/100) * cartDto.CartHeader.OrderTotal;
                     }
 
                 }
-                cartDto.CartDetails.ToList().ForEach(d => cartDto.CartHeader.OrderTotal += (d.Product.Price *d.Count));
+               
                 cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
 
             }

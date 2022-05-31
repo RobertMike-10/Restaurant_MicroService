@@ -108,7 +108,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
         {
             try
             {
-                bool isSuccess = await _repository.ApplyCoupon(cart.CartHeader.UserId, cart.CartHeader!.CuoponCode!);
+                bool isSuccess = await _repository.ApplyCoupon(cart.CartHeader.UserId, cart.CartHeader!.CouponCode!);
                 _response.Result = isSuccess;
 
             }

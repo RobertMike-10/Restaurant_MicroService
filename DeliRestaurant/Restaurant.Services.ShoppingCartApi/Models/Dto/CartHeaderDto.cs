@@ -8,7 +8,7 @@ namespace Restaurant.Services.ShoppingCartApi.Models.Dto
 
         [Required]
         public string UserId { get; set; }
-        public string? CuoponCode { get; set; }
+        public string? CouponCode { get; set; }
 
     }
 }
