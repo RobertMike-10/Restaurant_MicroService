@@ -101,5 +101,40 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             }
             return _response;
         }
+
+
+        [HttpPost("ApplyCoupon")]
+        public async Task<dynamic> ApplyCoupon([FromBody] CartDto cart)
+        {
+            try
+            {
+                bool isSuccess = await _repository.ApplyCoupon(cart.CartHeader.UserId, cart.CartHeader!.CuoponCode!);
+                _response.Result = isSuccess;
+
+            }
+            catch (Exception ex)
+            {
+                _response.isSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpPost("RemoveCoupon")]
+        public async Task<dynamic> RemoveCoupon([FromBody] string userId)
+        {
+            try
+            {
+                bool isSuccess = await _repository.RemoveCoupon(userId);
+                _response.Result = isSuccess;
+
+            }
+            catch (Exception ex)
+            {
+                _response.isSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }

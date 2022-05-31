@@ -170,9 +170,18 @@ namespace Restaurant.Services.ShoppingCartApi.Repository
 
         }
 
-        public Task<bool> RemoveCoupon(string userId)
+        public async Task<bool> RemoveCoupon(string userId)
         {
-            throw new NotImplementedException();
+            var cart = await _db.CartHeaders.FirstOrDefaultAsync(c => c.UserId == userId);
+            if (cart != null)
+            {
+                cart!.CouponCode = "";
+                _db.CartHeaders.Update(cart);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

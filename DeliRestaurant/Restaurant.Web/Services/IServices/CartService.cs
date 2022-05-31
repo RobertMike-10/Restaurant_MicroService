@@ -11,13 +11,24 @@ namespace Restaurant.Web.Services.IServices
             _clientFactory = clientFactory;
         }
 
-        public async Task<T> AddToCartAsync<T>(CartDto car, string? token = null)
+        public async Task<T> AddToCartAsync<T>(CartDto cart, string? token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = Constants.ApiType.POST,
-                Data = car,
+                Data = cart,
                 Url = Constants.ShoppingCartApiBase + "/AddCart",
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> ApplyCoupon<T>(CartDto cart, string? token = null)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = Constants.ApiType.POST,
+                Data = cart,
+                Url = Constants.ShoppingCartApiBase + "/RemoveCoupon",
                 AccessToken = token
             });
         }
@@ -42,6 +53,17 @@ namespace Restaurant.Web.Services.IServices
             });
         }
 
+        public async Task<T> RemoveCoupon<T>(string userId, string? token = null)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = Constants.ApiType.POST,
+                Data = userId,
+                Url = Constants.ShoppingCartApiBase + "/RemoveCoupon",
+                AccessToken = token
+            });
+        }
+
         public async Task<T> RemoveFromCartAsync<T>(int cartId, string? token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
@@ -53,12 +75,12 @@ namespace Restaurant.Web.Services.IServices
             });
         }
 
-        public async Task<T> UpdateToCartAsync<T>(CartDto car, string? token = null)
+        public async Task<T> UpdateToCartAsync<T>(CartDto cart, string? token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = Constants.ApiType.POST,
-                Data = car,
+                Data = cart,
                 Url = Constants.ShoppingCartApiBase + "/UpdateCart",
                 AccessToken = token
             });
