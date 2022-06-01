@@ -133,7 +133,7 @@ namespace Restaurant.Web.Controllers
         public async Task<IActionResult> CheckOut()
         {
             var cart = await LoadCartBasedOnUser();
-            cart.CartHeader.Card = new CreditCard();
+            cart.CartHeader.Card = new CardDto();
             return View(cart);
         }
 

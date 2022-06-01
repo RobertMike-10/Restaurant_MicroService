@@ -136,5 +136,22 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             }
             return _response;
         }
+
+        [HttpPost("Checkout")]
+        public async Task<dynamic> Checkout([FromBody] string userId)
+        {
+            try
+            {
+                bool isSuccess = await _repository.RemoveCoupon(userId);
+                _response.Result = isSuccess;
+
+            }
+            catch (Exception ex)
+            {
+                _response.isSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }

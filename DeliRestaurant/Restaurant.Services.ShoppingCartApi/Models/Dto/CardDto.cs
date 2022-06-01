@@ -1,6 +1,6 @@
-﻿namespace Restaurant.Web.Models
+﻿namespace Restaurant.Services.ShoppingCartApi.Models.Dto
 {
-    public class CreditCard
+    public class CardDto
     {
         public long? CreditCardNumber { get; set; }
         public int? CVV { get; set; }
