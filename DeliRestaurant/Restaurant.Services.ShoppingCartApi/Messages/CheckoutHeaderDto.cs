@@ -16,7 +16,7 @@ namespace Restaurant.Services.ShoppingCartApi.Messages
         public CardDto? Card { get; set; }
         public string? ExpiryMonthYear { get; set; }
         public int CartTotalItems { get; set; }
-        public IEnumerable<CartDetailDto> CartDetails { get; set; }
+        public IEnumerable<CartDetailDto>? CartDetails { get; set; }
     }
 }
  

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Restaurant.Services.ShoppingCartApi.Messages;
 using Restaurant.Services.ShoppingCartApi.Models.Dto;
 using Restaurant.Services.ShoppingCartApi.Repository;
 
@@ -18,6 +20,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             this._response = new ResponseDto();
         }
 
+        [Authorize]
         [HttpGet("GetCart/{userId}")]
         public async Task<dynamic> GetCart(string userId)
         {
@@ -34,7 +37,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
-
+        [Authorize]
         [HttpPost("AddCart")]
         public async Task<dynamic> AddCart(CartDto car)
         {
@@ -51,7 +54,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
-
+        [Authorize]
         [HttpPut("UpdateCart")]
         public async Task<dynamic> UpdateCart(CartDto car)
         {
@@ -68,6 +71,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
+        [Authorize]
         [HttpPost("RemoveCart")]
         public async Task<dynamic> RemoveCart([FromBody] int cartId)
         {
@@ -85,6 +89,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
+        [Authorize]
         [HttpDelete("ClearCart/{userId}")]
         public async Task<dynamic> ClearCart(string userId)
         {
@@ -102,7 +107,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
-
+        [Authorize]
         [HttpPost("ApplyCoupon")]
         public async Task<dynamic> ApplyCoupon([FromBody] CartDto cart)
         {
@@ -120,6 +125,7 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
+        [Authorize]
         [HttpPost("RemoveCoupon")]
         public async Task<dynamic> RemoveCoupon([FromBody] string userId)
         {
@@ -137,13 +143,19 @@ namespace Restaurant.Services.ShoppingCartApi.Controllers
             return _response;
         }
 
+        [Authorize]
         [HttpPost("Checkout")]
-        public async Task<dynamic> Checkout([FromBody] string userId)
+        public async Task<dynamic> Checkout(CheckoutHeaderDto checkoutHeader)
         {
             try
             {
-                bool isSuccess = await _repository.RemoveCoupon(userId);
-                _response.Result = isSuccess;
+                CartDto cart = await _repository.GetCartUserById(checkoutHeader.UserId);
+                if (cart==null)
+                {
+                    return BadRequest();
+                }
+                checkoutHeader.CartDetails = cart.CartDetails;
+                //logic add message procces order
 
             }
             catch (Exception ex)

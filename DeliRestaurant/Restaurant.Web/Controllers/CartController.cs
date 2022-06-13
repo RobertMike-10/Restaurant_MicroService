@@ -137,8 +137,30 @@ namespace Restaurant.Web.Controllers
             return View(cart);
         }
 
+        [HttpPost]
+        [ActionName("CheckOut")]
+        public async Task<IActionResult> CheckOut(CartDto cart)
+        {
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _cartService.Checkout<ResponseDto>(cart.CartHeader, accessToken);
+                return RedirectToAction(nameof(Confirmation));
+            }
+            catch (Exception ex)
+            {
+                return View(cart);
+            }
 
-        private bool ValidateCoupon(CouponDto coupon)
+        }
+
+        [HttpGet]
+        [ActionName("Confirmation")]
+        public async Task<IActionResult> Confirmation()
+        {
+            return View();
+        }
+            private bool ValidateCoupon(CouponDto coupon)
         {
             if (coupon.ExpirationDate < DateTime.Now )
                 return false;

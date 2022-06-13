@@ -33,6 +33,17 @@ namespace Restaurant.Web.Services.IServices
             });
         }
 
+        public async Task<T> Checkout<T>(CartHeaderDto cartHeader, string? token = null)
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = Constants.ApiType.POST,
+                Data = cartHeader,
+                Url = Constants.ShoppingCartApiBase + "/Checkout",
+                AccessToken = token
+            });
+        }
+
         public async Task<T> ClearCart<T>(string userId, string? token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
